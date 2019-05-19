@@ -3,8 +3,9 @@ import axios from 'axios';
 import { message , Button } from 'antd';
 import ReactDOM from 'react-dom';
 import ReactSwipe from 'react-swipe';
-
-
+import img from './img/1.png';
+import Mapa from './map';
+import { Map, Marker, InfoWindow,  Polyline } from 'react-amap';
 
 class App extends React.Component{
   constructor(){
@@ -118,7 +119,7 @@ class App extends React.Component{
         <div>
         {this.state.res.map((res,id)=>{
           return(
-            <div key={id} style={{width:'100%',height:'260px'}}>
+            <div key={id} style={{width:'100%',height:'260px',border:'1px solid #01CAFC'}}>
               <img style={{width:'50%',float:'left'}} src={res.book_cover} alt={123}/>
               <div style={{width:'50%', float:'left',textAlign:'center'}}>
                 <h4>书名：{res.bookname}</h4>
@@ -162,8 +163,8 @@ class App extends React.Component{
 
 
 
-        <input placeholder='请输入书名' style={{width:'80%',margin:'auto',textAlign:'center'}} id='bookname' />
-        <button onClick={this.changeFindBook}>搜索</button>
+        <input placeholder='请输入书名' style={{textAlign:'center',width:'60%',margin:'auto',border:'0',borderRadius:'10px',background:'#F2F3F7',height:'40px',lineHeight:'40px',fontSize:'20px',color:'gray'}} id='bookname' />&nbsp;&nbsp;&nbsp;
+        <button style={{width:'30%',height:'40px',lineHeight:'40px',fontSize:'20px',border:'0',borderRadius:'20px'}} onClick={this.changeFindBook}>GO</button><br/><br/>
         <div id='bigfindname'style={{display:'none',textAlign:'center',color:'orange'}}>
           {this.state.resa.map((resa,id)=>{
             return(<div key={id}>{resa}</div>)
@@ -172,8 +173,8 @@ class App extends React.Component{
 
 
 
-        <input placeholder='请输入关键字' style={{width:'80%',margin:'auto',textAlign:'center'}} id='booknameb' />
-        <button onClick={this.changeFindBookb}>搜索</button><br/><br/><br/><br/>
+        <input placeholder='请输入关键字' style={{textAlign:'center',margin:'auto',width:'60%',border:'0',borderRadius:'5px',background:'#F2F3F7',height:'40px',lineHeight:'40px',fontSize:'20px',color:'gray'}} id='booknameb' />&nbsp;&nbsp;&nbsp;
+        <button style={{width:'30%',height:'40px',lineHeight:'40px',fontSize:'20px',border:'0',borderRadius:'20px'}} onClick={this.changeFindBookb}>GO</button><br/><br/><br/><br/>
         <div id='bigfindnameb'style={{display:'none', textAlign:'center',color:'orange'}}>
           {this.state.resb.map((resb,id)=>{
             return(<div key={id} style={{width:'100%',height:'260px'}}>
@@ -195,7 +196,9 @@ class App extends React.Component{
       账号：{this.state.name}<br/>
       密码：{this.state.password}<br/>
       <div style={{width:'80%',height:'30px',margin:'auto',background:'red',textAlign:'center',borderRadius:'12px',lineHeight:'30px',color:'white'}} onClick={this.tuichu}>退出登录</div>
-
+      <div style={{width:'100%',height:'1000px'}}>
+      <Map></Map>
+      </div>
 
     </div>)
   }
@@ -269,13 +272,14 @@ class App extends React.Component{
         <div id='dad' style={{width:'100%',textAlign:'center' }}>
           <h1 style={{color:'pink'}}>伯镭图书馆</h1>
           <div style={{width:'80%',margin:'auto'}}>
-            账号：<input id='name' style={{margin:'auto',width:'60%'}}></input>
-          </div>  
+            账号：<input id='name' style={{margin:'auto',width:'60%',border:'0',borderRadius:'5px',background:'#F2F3F7',height:'40px',lineHeight:'40px',fontSize:'20px',color:'gray'}}></input>
+          </div>  <br/>
           <div style={{width:'80%', margin:'auto'}}>
-            密码：<input id='password' type='password' style={{margin:'auto',width:'60%'}}></input>
+            密码：<input id='password' type='password' style={{margin:'auto',width:'60%',border:'0',borderRadius:'5px',background:'#F2F3F7',height:'40px',lineHeight:'40px',fontSize:'20px',color:'gray'}}></input>
           </div>  
-          <div type="primary" style={{width:'60%',height:'30px',lineHeight:'30px',background:'#388BFF',margin:'auto',marginTop:'10px',borderRadius:'12px'}} onClick={this.land}>登陆</div>
-          <div type="primary" style={{width:'60%',height:'30px',lineHeight:'30px',background:'#388BFF',margin:'auto',marginTop:'10px',borderRadius:'12px'}}onClick={this.register}> 注册</div>
+          <img src={img} style={{paddingTop:'50px',paddingBottom:'20px'}} alt='123'onClick={this.land}/>
+          <div type="primary" style={{width:'60%',height:'50px',lineHeight:'50px',background:'#00C8FA',margin:'auto',marginTop:'10px',borderRadius:'12px'}}onClick={this.register}> 用户注册</div><br/><br/><br/><br/>
+          <p style={{color:'gray'}}>登陆即代表阅读并同意服务条款</p>
       </div>
 
       <div id='body' style={{display:'none'}}>
@@ -285,11 +289,14 @@ class App extends React.Component{
 
       </div>
 
-      <div id='footer' style={{width:'100%',display:'none'}}>
-        <div id='one'   style={{width:'33%',height:'40px',position:'fixed',bottom:'0px',left:'0',background:'blue',float:'left',textAlign:'center',lineHeight:'40px'}} onClick={this.bookshow}>推荐</div>
-        <div id='two'   style={{width:'33%',height:'40px',position:'fixed',bottom:'0px',left:'33%',background:'blue',float:'left',textAlign:'center',lineHeight:'40px'}}  onClick={this.findshow}>搜索</div>
-        <div id='three' style={{width:'33%',height:'40px',position:'fixed',bottom:'0px',left:'66%',background:'blue',float:'left',textAlign:'center',lineHeight:'40px'}} onClick={this.meshow}>个人</div>
+      <div id='footer' style={{width:'100%',display:'none',color:'white'}}>
+        <div id='one'   style={{width:'33%',height:'40px',position:'fixed',bottom:'0px',left:'0',background:'#01CAFC',float:'left',textAlign:'center',lineHeight:'40px'}} onClick={this.bookshow}>推荐</div>
+        <div id='two'   style={{width:'33%',height:'40px',position:'fixed',bottom:'0px',left:'33%',background:'#01CAFC',float:'left',textAlign:'center',lineHeight:'40px'}}  onClick={this.findshow}>搜索</div>
+        <div id='three' style={{width:'33%',height:'40px',position:'fixed',bottom:'0px',left:'66%',background:'#01CAFC',float:'left',textAlign:'center',lineHeight:'40px'}} onClick={this.meshow}>个人</div>
       </div>
+
+
+      
     </div>)
   }
 }

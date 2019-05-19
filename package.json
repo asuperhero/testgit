@@ -6,6 +6,7 @@
     "antd": "^3.18.1",
     "axios": "^0.18.0",
     "express": "^4.17.0",
+    "homepage": "./",
     "react": "^16.8.6",
     "react-amap": "^1.2.8",
     "react-dom": "^16.8.4",
@@ -13,8 +14,7 @@
     "react-scripts": "2.1.8",
     "react-swipe": "^6.0.4",
     "socket.io": "^2.2.0",
-    "swipe-js-iso": "^2.1.5",
-    "homepage": "./"
+    "swipe-js-iso": "^2.1.5"
   },
   "scripts": {
     "start": "react-scripts start",
