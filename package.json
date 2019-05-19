@@ -13,7 +13,8 @@
     "react-scripts": "2.1.8",
     "react-swipe": "^6.0.4",
     "socket.io": "^2.2.0",
-    "swipe-js-iso": "^2.1.5"
+    "swipe-js-iso": "^2.1.5",
+    "homepage": "./"
   },
   "scripts": {
     "start": "react-scripts start",
